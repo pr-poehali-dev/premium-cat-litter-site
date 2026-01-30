@@ -1,14 +1,538 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Slider } from '@/components/ui/slider';
+import { Separator } from '@/components/ui/separator';
+import Icon from '@/components/ui/icon';
 
-const Index = () => {
+const products = [
+  {
+    id: 1,
+    name: 'EcoNatura Basic',
+    price: 4500,
+    size: 'Средний',
+    material: 'Бамбук',
+    image: 'https://cdn.poehali.dev/projects/246330aa-00b7-42cf-a61c-0671093a7a72/files/caeb8f77-bc16-4b84-84d2-457f787953e9.jpg',
+    description: 'Компактный лоток из натурального бамбука'
+  },
+  {
+    id: 2,
+    name: 'EcoNatura Premium',
+    price: 7800,
+    size: 'Большой',
+    material: 'Бамбук',
+    image: 'https://cdn.poehali.dev/projects/246330aa-00b7-42cf-a61c-0671093a7a72/files/caeb8f77-bc16-4b84-84d2-457f787953e9.jpg',
+    description: 'Просторный лоток премиум класса'
+  },
+  {
+    id: 3,
+    name: 'EcoNatura Ceramic',
+    price: 9500,
+    size: 'Средний',
+    material: 'Керамика',
+    image: 'https://cdn.poehali.dev/projects/246330aa-00b7-42cf-a61c-0671093a7a72/files/caeb8f77-bc16-4b84-84d2-457f787953e9.jpg',
+    description: 'Элегантный керамический лоток'
+  },
+  {
+    id: 4,
+    name: 'EcoNatura Wood',
+    price: 6200,
+    size: 'Большой',
+    material: 'Дерево',
+    image: 'https://cdn.poehali.dev/projects/246330aa-00b7-42cf-a61c-0671093a7a72/files/caeb8f77-bc16-4b84-84d2-457f787953e9.jpg',
+    description: 'Лоток из массива дерева'
+  },
+  {
+    id: 5,
+    name: 'EcoNatura Mini',
+    price: 3800,
+    size: 'Маленький',
+    material: 'Бамбук',
+    image: 'https://cdn.poehali.dev/projects/246330aa-00b7-42cf-a61c-0671093a7a72/files/caeb8f77-bc16-4b84-84d2-457f787953e9.jpg',
+    description: 'Компактный лоток для котят'
+  },
+  {
+    id: 6,
+    name: 'EcoNatura Deluxe',
+    price: 12000,
+    size: 'Большой',
+    material: 'Керамика',
+    image: 'https://cdn.poehali.dev/projects/246330aa-00b7-42cf-a61c-0671093a7a72/files/caeb8f77-bc16-4b84-84d2-457f787953e9.jpg',
+    description: 'Роскошный лоток с автоочисткой'
+  }
+];
+
+export default function Index() {
+  const [selectedSize, setSelectedSize] = useState<string>('Все');
+  const [selectedMaterial, setSelectedMaterial] = useState<string>('Все');
+  const [priceRange, setPriceRange] = useState<number[]>([0, 15000]);
+  const [activeSection, setActiveSection] = useState<string>('catalog');
+
+  const filteredProducts = products.filter(product => {
+    const sizeMatch = selectedSize === 'Все' || product.size === selectedSize;
+    const materialMatch = selectedMaterial === 'Все' || product.material === selectedMaterial;
+    const priceMatch = product.price >= priceRange[0] && product.price <= priceRange[1];
+    return sizeMatch && materialMatch && priceMatch;
+  });
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      {/* Navigation */}
+      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <h1 className="text-3xl font-bold text-primary">EcoNatura</h1>
+            <div className="hidden md:flex gap-8">
+              <button 
+                onClick={() => setActiveSection('catalog')} 
+                className="text-foreground/80 hover:text-foreground transition-colors"
+              >
+                Каталог
+              </button>
+              <button 
+                onClick={() => setActiveSection('about')} 
+                className="text-foreground/80 hover:text-foreground transition-colors"
+              >
+                О бренде
+              </button>
+              <button 
+                onClick={() => setActiveSection('ecology')} 
+                className="text-foreground/80 hover:text-foreground transition-colors"
+              >
+                Экология
+              </button>
+              <button 
+                onClick={() => setActiveSection('blog')} 
+                className="text-foreground/80 hover:text-foreground transition-colors"
+              >
+                Блог
+              </button>
+              <button 
+                onClick={() => setActiveSection('contacts')} 
+                className="text-foreground/80 hover:text-foreground transition-colors"
+              >
+                Контакты
+              </button>
+            </div>
+            <Button className="hidden md:flex items-center gap-2">
+              <Icon name="ShoppingCart" size={20} />
+              Корзина
+            </Button>
+          </div>
+        </div>
+      </nav>
+
+      {activeSection === 'catalog' && (
+        <>
+          {/* Hero Section */}
+          <section className="relative h-[600px] overflow-hidden animate-fade-in">
+            <div 
+              className="absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage: `url('https://cdn.poehali.dev/projects/246330aa-00b7-42cf-a61c-0671093a7a72/files/7de9a4ce-2f70-486a-b6fe-3289eeca6b31.jpg')`
+              }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background" />
+            </div>
+            <div className="relative container mx-auto px-4 h-full flex items-center">
+              <div className="max-w-2xl">
+                <h2 className="text-6xl md:text-7xl font-bold text-foreground mb-6 leading-tight">
+                  Забота о природе начинается дома
+                </h2>
+                <p className="text-xl text-foreground/80 mb-8">
+                  Премиум лотки из экологичных материалов для комфорта вашего питомца
+                </p>
+                <Button size="lg" className="text-lg px-8 py-6">
+                  Смотреть каталог
+                </Button>
+              </div>
+            </div>
+          </section>
+
+          {/* Catalog Section */}
+          <section className="py-16">
+            <div className="container mx-auto px-4">
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                {/* Filters Sidebar */}
+                <div className="lg:col-span-1">
+                  <Card className="sticky top-24 animate-scale-in">
+                    <CardHeader>
+                      <h3 className="text-2xl font-bold">Фильтры</h3>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      {/* Size Filter */}
+                      <div>
+                        <h4 className="font-semibold mb-3 flex items-center gap-2">
+                          <Icon name="Ruler" size={18} />
+                          Размер
+                        </h4>
+                        <div className="flex flex-col gap-2">
+                          {['Все', 'Маленький', 'Средний', 'Большой'].map((size) => (
+                            <Button
+                              key={size}
+                              variant={selectedSize === size ? 'default' : 'outline'}
+                              className="justify-start"
+                              onClick={() => setSelectedSize(size)}
+                            >
+                              {size}
+                            </Button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <Separator />
+
+                      {/* Material Filter */}
+                      <div>
+                        <h4 className="font-semibold mb-3 flex items-center gap-2">
+                          <Icon name="Leaf" size={18} />
+                          Материал
+                        </h4>
+                        <div className="flex flex-col gap-2">
+                          {['Все', 'Бамбук', 'Дерево', 'Керамика'].map((material) => (
+                            <Button
+                              key={material}
+                              variant={selectedMaterial === material ? 'default' : 'outline'}
+                              className="justify-start"
+                              onClick={() => setSelectedMaterial(material)}
+                            >
+                              {material}
+                            </Button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <Separator />
+
+                      {/* Price Range */}
+                      <div>
+                        <h4 className="font-semibold mb-3 flex items-center gap-2">
+                          <Icon name="DollarSign" size={18} />
+                          Цена
+                        </h4>
+                        <div className="space-y-4">
+                          <Slider
+                            min={0}
+                            max={15000}
+                            step={500}
+                            value={priceRange}
+                            onValueChange={setPriceRange}
+                            className="w-full"
+                          />
+                          <div className="flex justify-between text-sm text-muted-foreground">
+                            <span>{priceRange[0]} ₽</span>
+                            <span>{priceRange[1]} ₽</span>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Products Grid */}
+                <div className="lg:col-span-3">
+                  <div className="mb-6">
+                    <h3 className="text-3xl font-bold mb-2">Каталог</h3>
+                    <p className="text-muted-foreground">
+                      Найдено товаров: {filteredProducts.length}
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    {filteredProducts.map((product, index) => (
+                      <Card 
+                        key={product.id} 
+                        className="overflow-hidden hover:shadow-lg transition-all duration-300 animate-fade-in"
+                        style={{ animationDelay: `${index * 100}ms` }}
+                      >
+                        <div className="aspect-square overflow-hidden bg-muted">
+                          <img 
+                            src={product.image} 
+                            alt={product.name}
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <CardHeader>
+                          <div className="flex justify-between items-start mb-2">
+                            <h4 className="text-xl font-bold">{product.name}</h4>
+                            <Badge variant="secondary">{product.material}</Badge>
+                          </div>
+                          <p className="text-sm text-muted-foreground">{product.description}</p>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <Icon name="Ruler" size={16} />
+                            <span>{product.size}</span>
+                          </div>
+                        </CardContent>
+                        <CardFooter className="flex justify-between items-center">
+                          <span className="text-2xl font-bold text-primary">
+                            {product.price.toLocaleString()} ₽
+                          </span>
+                          <Button>
+                            <Icon name="ShoppingCart" size={18} />
+                          </Button>
+                        </CardFooter>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+
+      {/* About Section */}
+      {activeSection === 'about' && (
+        <section className="py-20 animate-fade-in">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-5xl font-bold mb-8 text-center">О бренде EcoNatura</h2>
+              <div className="grid md:grid-cols-2 gap-12">
+                <div className="space-y-6">
+                  <p className="text-lg leading-relaxed">
+                    EcoNatura — это философия гармонии с природой, воплощённая в каждом изделии. 
+                    Мы создаём лотки для кошек премиум-класса из экологически чистых материалов.
+                  </p>
+                  <p className="text-lg leading-relaxed">
+                    Наша миссия — доказать, что забота о питомце может быть стильной и 
+                    не наносить вред окружающей среде.
+                  </p>
+                </div>
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <Icon name="Award" size={32} className="text-accent flex-shrink-0" />
+                    <div>
+                      <h4 className="font-bold text-xl mb-2">Премиум качество</h4>
+                      <p className="text-muted-foreground">Тщательный контроль на каждом этапе производства</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <Icon name="Leaf" size={32} className="text-accent flex-shrink-0" />
+                    <div>
+                      <h4 className="font-bold text-xl mb-2">Эко-материалы</h4>
+                      <p className="text-muted-foreground">100% натуральные и возобновляемые ресурсы</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <Icon name="Heart" size={32} className="text-accent flex-shrink-0" />
+                    <div>
+                      <h4 className="font-bold text-xl mb-2">Забота о питомцах</h4>
+                      <p className="text-muted-foreground">Безопасность и комфорт на первом месте</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Ecology Section */}
+      {activeSection === 'ecology' && (
+        <section className="py-20 animate-fade-in">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-5xl font-bold mb-8 text-center">Наш вклад в экологию</h2>
+              <div className="prose prose-lg max-w-none space-y-8">
+                <Card>
+                  <CardHeader>
+                    <h3 className="text-2xl font-bold flex items-center gap-3">
+                      <Icon name="Sprout" size={28} className="text-accent" />
+                      Устойчивое производство
+                    </h3>
+                  </CardHeader>
+                  <CardContent className="text-lg space-y-4">
+                    <p>
+                      Мы используем только возобновляемые материалы: бамбук растёт в 30 раз быстрее 
+                      обычного дерева, а керамика производится из природной глины без синтетических добавок.
+                    </p>
+                    <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                      <li>0% пластика в составе продукции</li>
+                      <li>Биоразлагаемая упаковка</li>
+                      <li>Углеродно-нейтральная доставка</li>
+                      <li>1% выручки направляется на защиту лесов</li>
+                    </ul>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <h3 className="text-2xl font-bold flex items-center gap-3">
+                      <Icon name="Recycle" size={28} className="text-accent" />
+                      Программа переработки
+                    </h3>
+                  </CardHeader>
+                  <CardContent className="text-lg">
+                    <p>
+                      Верните старый лоток — получите скидку 20% на новый. Мы переработаем материалы 
+                      и дадим им вторую жизнь.
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Blog Section */}
+      {activeSection === 'blog' && (
+        <section className="py-20 animate-fade-in">
+          <div className="container mx-auto px-4">
+            <h2 className="text-5xl font-bold mb-12 text-center">Блог</h2>
+            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {[
+                {
+                  title: 'Как выбрать правильный размер лотка',
+                  date: '15 января 2026',
+                  excerpt: 'Советы по выбору идеального лотка для вашей кошки'
+                },
+                {
+                  title: 'Уход за бамбуковыми изделиями',
+                  date: '10 января 2026',
+                  excerpt: 'Простые правила для долгой службы эко-лотков'
+                },
+                {
+                  title: 'Почему эко-материалы важны',
+                  date: '5 января 2026',
+                  excerpt: 'Разбираем влияние пластика на окружающую среду'
+                }
+              ].map((post, index) => (
+                <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <Badge className="w-fit mb-2">{post.date}</Badge>
+                    <h3 className="text-2xl font-bold">{post.title}</h3>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground mb-4">{post.excerpt}</p>
+                    <Button variant="outline">
+                      Читать далее
+                      <Icon name="ArrowRight" size={16} />
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Contacts Section */}
+      {activeSection === 'contacts' && (
+        <section className="py-20 animate-fade-in">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-5xl font-bold mb-12 text-center">Контакты</h2>
+              <div className="grid md:grid-cols-2 gap-8">
+                <Card>
+                  <CardHeader>
+                    <h3 className="text-2xl font-bold">Свяжитесь с нами</h3>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div className="flex items-start gap-4">
+                      <Icon name="Mail" size={24} className="text-accent flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-semibold mb-1">Email</p>
+                        <p className="text-muted-foreground">info@econatura.ru</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-4">
+                      <Icon name="Phone" size={24} className="text-accent flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-semibold mb-1">Телефон</p>
+                        <p className="text-muted-foreground">+7 (495) 123-45-67</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-4">
+                      <Icon name="MapPin" size={24} className="text-accent flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-semibold mb-1">Адрес</p>
+                        <p className="text-muted-foreground">
+                          г. Москва, ул. Экологическая, д. 15
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <h3 className="text-2xl font-bold">Напишите нам</h3>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <input 
+                      type="text" 
+                      placeholder="Ваше имя" 
+                      className="w-full px-4 py-3 rounded-lg border border-input bg-background"
+                    />
+                    <input 
+                      type="email" 
+                      placeholder="Email" 
+                      className="w-full px-4 py-3 rounded-lg border border-input bg-background"
+                    />
+                    <textarea 
+                      placeholder="Сообщение" 
+                      rows={4}
+                      className="w-full px-4 py-3 rounded-lg border border-input bg-background resize-none"
+                    />
+                    <Button className="w-full">Отправить</Button>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Footer */}
+      <footer className="bg-primary/5 py-12 mt-20">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-2xl font-bold mb-4">EcoNatura</h3>
+              <p className="text-muted-foreground">
+                Премиум лотки для кошек из экологичных материалов
+              </p>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Каталог</h4>
+              <ul className="space-y-2 text-muted-foreground">
+                <li>Бамбуковые лотки</li>
+                <li>Керамические лотки</li>
+                <li>Деревянные лотки</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Информация</h4>
+              <ul className="space-y-2 text-muted-foreground">
+                <li>О компании</li>
+                <li>Доставка и оплата</li>
+                <li>Возврат товара</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-4">Соцсети</h4>
+              <div className="flex gap-4">
+                <Button variant="outline" size="icon">
+                  <Icon name="Facebook" size={20} />
+                </Button>
+                <Button variant="outline" size="icon">
+                  <Icon name="Instagram" size={20} />
+                </Button>
+                <Button variant="outline" size="icon">
+                  <Icon name="Twitter" size={20} />
+                </Button>
+              </div>
+            </div>
+          </div>
+          <Separator className="my-8" />
+          <p className="text-center text-muted-foreground">
+            © 2026 EcoNatura. Все права защищены.
+          </p>
+        </div>
+      </footer>
     </div>
   );
-};
-
-export default Index;
+}
