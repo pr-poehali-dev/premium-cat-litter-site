@@ -79,45 +79,45 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
-        <div className="container mx-auto px-4 py-4">
+      <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-lg border-b border-border/50">
+        <div className="container mx-auto px-6 py-6">
           <div className="flex items-center justify-between">
-            <h1 className="text-3xl font-bold text-primary">EcoNatura</h1>
-            <div className="hidden md:flex gap-8">
+            <h1 className="text-2xl font-light tracking-[0.2em] text-primary uppercase">EcoNatura</h1>
+            <div className="hidden md:flex gap-10 text-sm">
               <button 
                 onClick={() => setActiveSection('catalog')} 
-                className="text-foreground/80 hover:text-foreground transition-colors"
+                className="text-foreground/70 hover:text-foreground transition-colors tracking-wide uppercase font-light"
               >
                 Каталог
               </button>
               <button 
                 onClick={() => setActiveSection('about')} 
-                className="text-foreground/80 hover:text-foreground transition-colors"
+                className="text-foreground/70 hover:text-foreground transition-colors tracking-wide uppercase font-light"
               >
                 О бренде
               </button>
               <button 
                 onClick={() => setActiveSection('ecology')} 
-                className="text-foreground/80 hover:text-foreground transition-colors"
+                className="text-foreground/70 hover:text-foreground transition-colors tracking-wide uppercase font-light"
               >
                 Экология
               </button>
               <button 
                 onClick={() => setActiveSection('blog')} 
-                className="text-foreground/80 hover:text-foreground transition-colors"
+                className="text-foreground/70 hover:text-foreground transition-colors tracking-wide uppercase font-light"
               >
                 Блог
               </button>
               <button 
                 onClick={() => setActiveSection('contacts')} 
-                className="text-foreground/80 hover:text-foreground transition-colors"
+                className="text-foreground/70 hover:text-foreground transition-colors tracking-wide uppercase font-light"
               >
                 Контакты
               </button>
             </div>
-            <Button className="hidden md:flex items-center gap-2">
-              <Icon name="ShoppingCart" size={20} />
-              Корзина
+            <Button variant="outline" className="hidden md:flex items-center gap-2 border-primary/20 hover:bg-primary hover:text-primary-foreground">
+              <Icon name="ShoppingCart" size={18} />
+              <span className="text-sm tracking-wide">Корзина</span>
             </Button>
           </div>
         </div>
@@ -126,27 +126,39 @@ export default function Index() {
       {activeSection === 'catalog' && (
         <>
           {/* Hero Section */}
-          <section className="relative h-[600px] overflow-hidden animate-fade-in">
+          <section className="relative h-[700px] overflow-hidden animate-fade-in bg-gradient-to-br from-background via-muted/30 to-secondary/20">
             <div 
-              className="absolute inset-0 bg-cover bg-center"
+              className="absolute inset-0 bg-cover bg-center opacity-20"
               style={{
                 backgroundImage: `url('https://cdn.poehali.dev/projects/246330aa-00b7-42cf-a61c-0671093a7a72/files/7de9a4ce-2f70-486a-b6fe-3289eeca6b31.jpg')`
               }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background" />
-            </div>
-            <div className="relative container mx-auto px-4 h-full flex items-center">
-              <div className="max-w-2xl">
-                <h2 className="text-6xl md:text-7xl font-bold text-foreground mb-6 leading-tight">
-                  Забота о природе начинается дома
+            />
+            <div className="relative container mx-auto px-6 h-full flex items-center">
+              <div className="max-w-3xl">
+                <div className="mb-6">
+                  <div className="w-16 h-[1px] bg-accent mb-6"></div>
+                  <p className="text-sm tracking-[0.3em] uppercase text-muted-foreground font-light mb-4">
+                    Premium Collection
+                  </p>
+                </div>
+                <h2 className="text-7xl md:text-8xl font-light text-foreground mb-8 leading-[1.1] tracking-tight">
+                  Ваш кот<br />достоен лучшего
                 </h2>
-                <p className="text-xl text-foreground/80 mb-8">
-                  Премиум лотки из экологичных материалов для комфорта вашего питомца
+                <p className="text-lg text-muted-foreground mb-10 max-w-xl font-light leading-relaxed">
+                  Эксклюзивные лотки из благородных материалов, созданные для истинных ценителей качества и комфорта
                 </p>
-                <Button size="lg" className="text-lg px-8 py-6">
-                  Смотреть каталог
+                <Button size="lg" className="text-sm tracking-widest uppercase px-10 py-7 font-light">
+                  Исследовать коллекцию
                 </Button>
               </div>
+            </div>
+            <div className="absolute bottom-8 right-8 text-right">
+              <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground font-light">
+                Ручная работа
+              </p>
+              <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground font-light">
+                Натуральные материалы
+              </p>
             </div>
           </section>
 
@@ -156,23 +168,23 @@ export default function Index() {
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 {/* Filters Sidebar */}
                 <div className="lg:col-span-1">
-                  <Card className="sticky top-24 animate-scale-in">
+                  <Card className="sticky top-24 animate-scale-in border-border/50 shadow-sm">
                     <CardHeader>
-                      <h3 className="text-2xl font-bold">Фильтры</h3>
+                      <h3 className="text-xl font-light tracking-wide uppercase">Фильтры</h3>
                     </CardHeader>
-                    <CardContent className="space-y-6">
+                    <CardContent className="space-y-8">
                       {/* Size Filter */}
                       <div>
-                        <h4 className="font-semibold mb-3 flex items-center gap-2">
-                          <Icon name="Ruler" size={18} />
+                        <h4 className="text-xs font-light mb-4 flex items-center gap-2 tracking-widest uppercase text-muted-foreground">
+                          <Icon name="Ruler" size={16} />
                           Размер
                         </h4>
                         <div className="flex flex-col gap-2">
                           {['Все', 'Маленький', 'Средний', 'Большой'].map((size) => (
                             <Button
                               key={size}
-                              variant={selectedSize === size ? 'default' : 'outline'}
-                              className="justify-start"
+                              variant={selectedSize === size ? 'default' : 'ghost'}
+                              className="justify-start font-light text-sm hover:bg-muted"
                               onClick={() => setSelectedSize(size)}
                             >
                               {size}
@@ -181,20 +193,20 @@ export default function Index() {
                         </div>
                       </div>
 
-                      <Separator />
+                      <Separator className="bg-border/50" />
 
                       {/* Material Filter */}
                       <div>
-                        <h4 className="font-semibold mb-3 flex items-center gap-2">
-                          <Icon name="Leaf" size={18} />
+                        <h4 className="text-xs font-light mb-4 flex items-center gap-2 tracking-widest uppercase text-muted-foreground">
+                          <Icon name="Leaf" size={16} />
                           Материал
                         </h4>
                         <div className="flex flex-col gap-2">
                           {['Все', 'Бамбук', 'Дерево', 'Керамика'].map((material) => (
                             <Button
                               key={material}
-                              variant={selectedMaterial === material ? 'default' : 'outline'}
-                              className="justify-start"
+                              variant={selectedMaterial === material ? 'default' : 'ghost'}
+                              className="justify-start font-light text-sm hover:bg-muted"
                               onClick={() => setSelectedMaterial(material)}
                             >
                               {material}
@@ -203,12 +215,12 @@ export default function Index() {
                         </div>
                       </div>
 
-                      <Separator />
+                      <Separator className="bg-border/50" />
 
                       {/* Price Range */}
                       <div>
-                        <h4 className="font-semibold mb-3 flex items-center gap-2">
-                          <Icon name="DollarSign" size={18} />
+                        <h4 className="text-xs font-light mb-4 flex items-center gap-2 tracking-widest uppercase text-muted-foreground">
+                          <Icon name="DollarSign" size={16} />
                           Цена
                         </h4>
                         <div className="space-y-4">
@@ -220,7 +232,7 @@ export default function Index() {
                             onValueChange={setPriceRange}
                             className="w-full"
                           />
-                          <div className="flex justify-between text-sm text-muted-foreground">
+                          <div className="flex justify-between text-xs text-muted-foreground font-light">
                             <span>{priceRange[0]} ₽</span>
                             <span>{priceRange[1]} ₽</span>
                           </div>
@@ -232,44 +244,44 @@ export default function Index() {
 
                 {/* Products Grid */}
                 <div className="lg:col-span-3">
-                  <div className="mb-6">
-                    <h3 className="text-3xl font-bold mb-2">Каталог</h3>
-                    <p className="text-muted-foreground">
-                      Найдено товаров: {filteredProducts.length}
+                  <div className="mb-10">
+                    <h3 className="text-3xl font-light tracking-wide mb-3">Коллекция</h3>
+                    <p className="text-sm text-muted-foreground font-light tracking-wide">
+                      {filteredProducts.length} изделий
                     </p>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                     {filteredProducts.map((product, index) => (
                       <Card 
                         key={product.id} 
-                        className="overflow-hidden hover:shadow-lg transition-all duration-300 animate-fade-in"
+                        className="group overflow-hidden hover:shadow-2xl transition-all duration-500 animate-fade-in border-border/30 bg-card"
                         style={{ animationDelay: `${index * 100}ms` }}
                       >
-                        <div className="aspect-square overflow-hidden bg-muted">
+                        <div className="aspect-square overflow-hidden bg-muted/30">
                           <img 
                             src={product.image} 
                             alt={product.name}
-                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                           />
                         </div>
-                        <CardHeader>
-                          <div className="flex justify-between items-start mb-2">
-                            <h4 className="text-xl font-bold">{product.name}</h4>
-                            <Badge variant="secondary">{product.material}</Badge>
+                        <CardHeader className="pb-3">
+                          <div className="flex justify-between items-start mb-3">
+                            <h4 className="text-xl font-light tracking-wide">{product.name}</h4>
+                            <Badge variant="secondary" className="text-xs font-light tracking-wider">{product.material}</Badge>
                           </div>
-                          <p className="text-sm text-muted-foreground">{product.description}</p>
+                          <p className="text-xs text-muted-foreground font-light leading-relaxed">{product.description}</p>
                         </CardHeader>
-                        <CardContent>
-                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <Icon name="Ruler" size={16} />
+                        <CardContent className="pb-3">
+                          <div className="flex items-center gap-2 text-xs text-muted-foreground font-light">
+                            <Icon name="Ruler" size={14} />
                             <span>{product.size}</span>
                           </div>
                         </CardContent>
-                        <CardFooter className="flex justify-between items-center">
-                          <span className="text-2xl font-bold text-primary">
+                        <CardFooter className="flex justify-between items-center pt-4 border-t border-border/30">
+                          <span className="text-2xl font-light text-primary tracking-wide">
                             {product.price.toLocaleString()} ₽
                           </span>
-                          <Button>
+                          <Button variant="ghost" size="icon" className="hover:bg-primary hover:text-primary-foreground transition-colors">
                             <Icon name="ShoppingCart" size={18} />
                           </Button>
                         </CardFooter>
@@ -487,48 +499,48 @@ export default function Index() {
       )}
 
       {/* Footer */}
-      <footer className="bg-primary/5 py-12 mt-20">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8">
+      <footer className="border-t border-border/50 py-16 mt-32">
+        <div className="container mx-auto px-6">
+          <div className="grid md:grid-cols-4 gap-12">
             <div>
-              <h3 className="text-2xl font-bold mb-4">EcoNatura</h3>
-              <p className="text-muted-foreground">
-                Премиум лотки для кошек из экологичных материалов
+              <h3 className="text-xl font-light tracking-[0.2em] uppercase mb-6">EcoNatura</h3>
+              <p className="text-xs text-muted-foreground font-light leading-relaxed">
+                Эксклюзивные лотки для кошек из благородных материалов
               </p>
             </div>
             <div>
-              <h4 className="font-bold mb-4">Каталог</h4>
-              <ul className="space-y-2 text-muted-foreground">
-                <li>Бамбуковые лотки</li>
-                <li>Керамические лотки</li>
-                <li>Деревянные лотки</li>
+              <h4 className="text-xs font-light mb-6 tracking-widest uppercase text-foreground">Коллекция</h4>
+              <ul className="space-y-3 text-xs text-muted-foreground font-light">
+                <li className="hover:text-foreground transition-colors cursor-pointer">Бамбуковые лотки</li>
+                <li className="hover:text-foreground transition-colors cursor-pointer">Керамические лотки</li>
+                <li className="hover:text-foreground transition-colors cursor-pointer">Деревянные лотки</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-4">Информация</h4>
-              <ul className="space-y-2 text-muted-foreground">
-                <li>О компании</li>
-                <li>Доставка и оплата</li>
-                <li>Возврат товара</li>
+              <h4 className="text-xs font-light mb-6 tracking-widest uppercase text-foreground">Информация</h4>
+              <ul className="space-y-3 text-xs text-muted-foreground font-light">
+                <li className="hover:text-foreground transition-colors cursor-pointer">О компании</li>
+                <li className="hover:text-foreground transition-colors cursor-pointer">Доставка и оплата</li>
+                <li className="hover:text-foreground transition-colors cursor-pointer">Возврат товара</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold mb-4">Соцсети</h4>
-              <div className="flex gap-4">
-                <Button variant="outline" size="icon">
-                  <Icon name="Facebook" size={20} />
+              <h4 className="text-xs font-light mb-6 tracking-widest uppercase text-foreground">Социальные сети</h4>
+              <div className="flex gap-3">
+                <Button variant="ghost" size="icon" className="hover:bg-muted">
+                  <Icon name="Facebook" size={18} />
                 </Button>
-                <Button variant="outline" size="icon">
-                  <Icon name="Instagram" size={20} />
+                <Button variant="ghost" size="icon" className="hover:bg-muted">
+                  <Icon name="Instagram" size={18} />
                 </Button>
-                <Button variant="outline" size="icon">
-                  <Icon name="Twitter" size={20} />
+                <Button variant="ghost" size="icon" className="hover:bg-muted">
+                  <Icon name="Twitter" size={18} />
                 </Button>
               </div>
             </div>
           </div>
-          <Separator className="my-8" />
-          <p className="text-center text-muted-foreground">
+          <Separator className="my-12 bg-border/30" />
+          <p className="text-center text-xs text-muted-foreground font-light tracking-wide">
             © 2026 EcoNatura. Все права защищены.
           </p>
         </div>

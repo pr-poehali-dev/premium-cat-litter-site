@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,35 +6,35 @@
 
 @layer base {
   :root {
-    --background: 30 25% 96%;
-    --foreground: 25 20% 25%;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 25 20% 25%;
+    --card-foreground: 240 10% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 25 20% 25%;
+    --popover-foreground: 240 10% 10%;
 
-    --primary: 25 25% 45%;
-    --primary-foreground: 30 30% 98%;
+    --primary: 240 8% 15%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 30 20% 82%;
-    --secondary-foreground: 25 20% 25%;
+    --secondary: 40 35% 85%;
+    --secondary-foreground: 240 8% 15%;
 
-    --muted: 30 15% 90%;
-    --muted-foreground: 25 15% 50%;
+    --muted: 40 20% 95%;
+    --muted-foreground: 240 5% 45%;
 
-    --accent: 115 25% 45%;
-    --accent-foreground: 30 30% 98%;
+    --accent: 40 45% 65%;
+    --accent-foreground: 240 10% 10%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 30 15% 85%;
-    --input: 30 15% 85%;
-    --ring: 25 25% 45%;
+    --border: 40 15% 90%;
+    --input: 40 15% 90%;
+    --ring: 40 45% 65%;
 
-    --radius: 1rem;
+    --radius: 0.25rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -99,7 +99,8 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Montserrat", sans-serif;
+    letter-spacing: 0.01em;
   }
 
   h1,
@@ -108,7 +109,8 @@
   h4,
   h5,
   h6 {
-    font-family: "Cormorant", serif;
-    font-weight: 600;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    letter-spacing: 0.02em;
   }
 }
